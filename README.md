@@ -8,6 +8,15 @@ Asynchronous task manager. Telegram bot. [Python](https://python.org) + [Aiogram
 
 ## Help:
 
+- Create a bot and get a token using: [@BotFather](https://t.me/BotFather).
+- Clone the repository.
+- Create a `.env` file in the project folder:
+
+```.env
+API_TOKEN="<token>"
+```
+
+
 ### Use:
 
 - `python -m venv venv`
