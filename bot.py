@@ -33,10 +33,13 @@ logging.basicConfig(
 
 
 class TaskStates(StatesGroup):
-    waiting_for_task_title = State()
-    waiting_for_task_description = State()
-    waiting_for_edit_task_title = State()
-    waiting_for_edit_task_description = State()
+    title = State()
+    description = State()
+
+
+class TaskEditStates(StatesGroup):
+    title = State()
+    description = State()
 
 
 class TelegramBot:
@@ -53,11 +56,11 @@ class TelegramBot:
         self.dp = Dispatcher()
         self.dp.message(Command("start"))(self.cmd_start)
         self.dp.callback_query()(self.callback_handler)
-        self.dp.message(TaskStates.waiting_for_task_title)(self.process_task_title)
-        self.dp.message(TaskStates.waiting_for_task_description)(
+        self.dp.message(TaskStates.title)(self.process_task_title)
+        self.dp.message(TaskStates.description)(
             self.process_task_description)
-        self.dp.message(TaskStates.waiting_for_edit_task_title)(self.process_edit_task_title)
-        self.dp.message(TaskStates.waiting_for_edit_task_description)(self.process_edit_task_description)
+        self.dp.message(TaskEditStates.title)(self.process_edit_task_title)
+        self.dp.message(TaskEditStates.description)(self.process_edit_task_description)
 
     async def callback_handler(self, callback_query: types.CallbackQuery, state: FSMContext) -> None:
         if callback_query.data.startswith("task_"):
@@ -65,39 +68,7 @@ class TelegramBot:
             tasks = self.app_manager.get_tasks(callback_query.from_user.id)
             if 0 <= task_index < len(tasks):
                 task = tasks[task_index]
-                button_text = "❌ Mark as not completed" if task.completed else "✅ Mark as done"
-                keyboard = InlineKeyboardBuilder()
-                keyboard.row(
-                    types.InlineKeyboardButton(
-                        text="✏️ Change",
-                        callback_data=f"edit_task_{task.id}"
-                    )
-                )
-                keyboard.row(
-                    types.InlineKeyboardButton(
-                        text=button_text,
-                        callback_data=f"toggle_task_{task.id}"
-                    )
-                )
-                keyboard.row(
-                    types.InlineKeyboardButton(
-                        text="🔥 Delete",
-                        callback_data=f"delete_task_{task.id}"
-                    )
-                )
-                keyboard.row(
-                    types.InlineKeyboardButton(
-                        text="◀️ To the tasks",
-                        callback_data="show_tasks"
-                    )
-                )
-                text = (f"📝 Task: {task.title}\n\n"
-                        f"✍️ Description: {task.description}\n\n"
-                        f"⏳ Status: {self.app_manager.get_task_emoji(task.completed)}\n")
-                await callback_query.message.answer(
-                    text,
-                    reply_markup=keyboard.as_markup()
-                )
+                await self.show_task_details(callback_query.message, task, callback_query.from_user)
         elif callback_query.data.startswith("edit_task_"):
             task_id = int(callback_query.data.split("_")[2])
             await self.edit_task(callback_query.message, task_id, state)
@@ -151,11 +122,46 @@ class TelegramBot:
 
         await message.answer(msg, reply_markup=builder.as_markup())
 
+    async def show_task_details(self, message: types.Message, task, user: types.User) -> None:
+        button_text = "❌ Mark as not completed" if task.completed else "✅ Mark as done"
+        keyboard = InlineKeyboardBuilder()
+        keyboard.row(
+            types.InlineKeyboardButton(
+                text="✏️ Change",
+                callback_data=f"edit_task_{task.id}"
+            )
+        )
+        keyboard.row(
+            types.InlineKeyboardButton(
+                text=button_text,
+                callback_data=f"toggle_task_{task.id}"
+            )
+        )
+        keyboard.row(
+            types.InlineKeyboardButton(
+                text="🔥 Delete",
+                callback_data=f"delete_task_{task.id}"
+            )
+        )
+        keyboard.row(
+            types.InlineKeyboardButton(
+                text="◀️ To the tasks",
+                callback_data="show_tasks"
+            )
+        )
+        text = (f"📝 Task: {task.title}\n\n"
+                f"✍️ Description: {task.description}\n\n"
+                f"⏳ Status: {self.app_manager.get_task_emoji(task.completed)}\n")
+        await message.answer(
+            text,
+            reply_markup=keyboard.as_markup()
+        )
+
     async def add_task(self, message: types.Message, user: types.User = None, state: FSMContext = None) -> None:
         if user is None:
             user = message.from_user
 
-        await state.set_state(TaskStates.waiting_for_task_title)
+        await state.set_state(TaskStates.title)
         await message.answer(f"{user.full_name} enter the name of your task: ")
 
     async def process_task_title(self, message: types.Message, state: FSMContext) -> None:
@@ -164,7 +170,7 @@ class TelegramBot:
             await message.answer("⚠️ The name is too long. Please enter a name no longer than 50 characters:")
             return
         await state.update_data(task_title=task_title)
-        await state.set_state(TaskStates.waiting_for_task_description)
+        await state.set_state(TaskStates.description)
         await message.answer("Now enter a description of your task: ")
 
     async def process_task_description(self, message: types.Message, state: FSMContext) -> None:
@@ -218,7 +224,7 @@ class TelegramBot:
         task = self.app_manager.get_task_by_id(task_id)
         await state.update_data(task_id=task_id)
         await state.set_state(
-            TaskStates.waiting_for_edit_task_title)
+            TaskEditStates.title)
         await message.answer(f"Old name:\n{task.title}\nEnter a new task name:")
 
     async def complete_task(self, message: types.Message, task_id: int, user: types.User) -> None:
@@ -241,7 +247,7 @@ class TelegramBot:
             return
         await state.update_data(task_title=task_title)
         await state.set_state(
-            TaskStates.waiting_for_edit_task_description)
+            TaskEditStates.description)
         await message.answer(
             f"Old description: {self.app_manager.get_task_by_id(task_id).description}\nEnter a new task description:")
 
