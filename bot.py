@@ -149,8 +149,8 @@ class TelegramBot:
                 callback_data="show_tasks"
             )
         )
-        text = (f"📝 Task: {task.title}\n\n"
-                f"✍️ Description: {task.description}\n\n"
+        text = (f"📝 Task:\n\n{task.title}\n\n"
+                f"✍️ Description:\n\n{task.description}\n\n"
                 f"⏳ Status: {self.app_manager.get_task_emoji(task.completed)}\n")
         await message.answer(
             text,
