@@ -14,7 +14,7 @@ This bot can be deployed even on a phone using [Termux](https://github.com/termu
 
 ## Other to-do list apps:
 
-- [Desktop ToDo app](https://github.com/smartlegionlab/todo_app_desktop_flet)
+- [Desktop ToDo app](https://github.com/smartlegionlab/todo_app_desktop)
 - [Cli ToDo app](https://github.com/smartlegionlab/todo_app_cli) 
 
 ---
