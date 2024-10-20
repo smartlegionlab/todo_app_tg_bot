@@ -8,6 +8,9 @@
 # --------------------------------------------------------
 
 
-class AppConfig:
-    app_name = "TODO App"
-    github_url = "https://github.com/smartlegionlab/todo_app_tg_bot/"
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()
