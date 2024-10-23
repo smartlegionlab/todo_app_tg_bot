@@ -12,8 +12,11 @@ class TaskController:
     def __init__(self, db):
         self.db = db
 
-    def create_user(self, full_name):
-        user = self.db.add_user(full_name)
+    def create_user(self, user_id, full_name):
+        user = self.db.add_user(
+            user_id=user_id,
+            full_name=full_name
+        )
         return user
 
     def get_user(self, user_id):
@@ -51,3 +54,11 @@ class TaskController:
     def delete_task(self, task_id):
         task = self.db.delete_task(task_id)
         return task
+
+    def get_total_task_count(self, user_id):
+        total_tasks = self.db.get_total_task_count(user_id)
+        return total_tasks
+
+    def get_completed_task_count(self, user_id):
+        completed_tasks = self.db.get_completed_task_count(user_id)
+        return completed_tasks

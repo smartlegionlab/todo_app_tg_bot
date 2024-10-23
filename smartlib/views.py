@@ -9,9 +9,13 @@
 from aiogram import types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from smartlib.config import Config
+from smartlib.controllers import TaskController
+
 
 class TaskView:
-    def __init__(self, controller):
+    def __init__(self, controller: TaskController):
+        self.config = Config()
         self.controller = controller
 
     async def show_welcome(self, message: types.Message, user: types.User):
@@ -23,15 +27,18 @@ class TaskView:
             )
         )
         builder.row(types.InlineKeyboardButton(
-            text=f"📝 My tasks [{self.controller.get_all_tasks(user.id)}]",
+            text=f"📝 My tasks [{self.controller.get_completed_task_count(user.id)}/"
+                 f"{self.controller.get_total_task_count(user.id)}]",
             callback_data="show_tasks")
         )
         builder.row(types.InlineKeyboardButton(
-            text="🐱 GitHub", url="https://github.com")
+            text="🐱 GitHub", url="https://github.com/smartlegionlab/todo_app_tg_bot/")
         )
 
-        msg = (f"<b>{user.full_name}</b>! Welcome to your ToDo app.\n\n"
-               f'To view your tasks, click "My tasks"')
+        msg = (f"{self.config.app_name}\n\n"
+               f"{user.full_name}, Tasks completed: "
+               f"[{self.controller.get_completed_task_count(user.id)}/"
+               f"{self.controller.get_total_task_count(user.id)}]\n\n")
 
         await message.answer(msg, reply_markup=builder.as_markup())
 
