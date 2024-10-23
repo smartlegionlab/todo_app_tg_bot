@@ -8,6 +8,6 @@
 # --------------------------------------------------------
 
 
-class AppConfig:
-    app_name = "TODO App"
+class Config:
+    app_name = "Smart ToDo App"
     github_url = "https://github.com/smartlegionlab/todo_app_tg_bot/"
