@@ -33,11 +33,11 @@ logging.basicConfig(
 
 
 class TaskStates(StatesGroup):
-    title = State()
+    name = State()
 
 
 class TaskEditStates(StatesGroup):
-    title = State()
+    name = State()
 
 
 class TelegramBot:
@@ -55,8 +55,8 @@ class TelegramBot:
         self.dp = Dispatcher()
         self.dp.message(Command("start"))(self.cmd_start)
         self.dp.callback_query()(self.callback_handler)
-        self.dp.message(TaskStates.title)(self.process_task_title)
-        self.dp.message(TaskEditStates.title)(self.process_edit_task_title)
+        self.dp.message(TaskStates.name)(self.process_task_name)
+        self.dp.message(TaskEditStates.name)(self.process_edit_task_name)
 
     async def callback_handler(self, callback_query: types.CallbackQuery, state: FSMContext) -> None:
         if callback_query.data.startswith("task_"):
@@ -102,16 +102,16 @@ class TelegramBot:
         if user is None:
             user = message.from_user
 
-        await state.set_state(TaskStates.title)
-        await message.answer(f"{user.full_name} enter the name of your task: ")
+        await state.set_state(TaskStates.name)
+        await message.answer(f"Enter the task name: ")
 
-    async def process_task_title(self, message: types.Message, state: FSMContext) -> None:
-        task_title = message.text
-        if len(task_title) > 50:
-            await message.answer("⚠️ The name is too long. Please enter a name no longer than 50 characters:")
+    async def process_task_name(self, message: types.Message, state: FSMContext) -> None:
+        task_name = message.text
+        if len(task_name) > 60:
+            await message.answer("⚠️ The name is too long. Please enter a name no longer than 60 characters:")
             return
-        self.controller.create_task(message.from_user.id, task_title)
-        await message.answer(f"Task '{task_title}' added!")
+        self.controller.create_task(message.from_user.id, task_name)
+        await message.answer(f"Task '{task_name}' added!")
         await state.clear()
         await self.cmd_start(message)
 
@@ -132,8 +132,8 @@ class TelegramBot:
         task = self.controller.get_task(task_id)
         await state.update_data(task_id=task_id)
         await state.set_state(
-            TaskEditStates.title)
-        await message.answer(f"Old name:\n{task.title}\nEnter a new task name:")
+            TaskEditStates.name)
+        await message.answer(f"<b>Old name:</b>\n\n{task.name}\n\n<b>Enter a new task name:</b>")
 
     async def complete_task(self, message: types.Message, task_id: int, user: types.User) -> None:
         self.controller.update_task(task_id, completed=True)
@@ -145,17 +145,17 @@ class TelegramBot:
         await message.answer("🔥 Task deleted!")
         await self.show_tasks(message, user=user)
 
-    async def process_edit_task_title(self, message: types.Message, state: FSMContext) -> None:
+    async def process_edit_task_name(self, message: types.Message, state: FSMContext) -> None:
         data = await state.get_data()
         task_id = data.get("task_id")
-        task_title = message.text
-        if len(task_title) > 50:
-            await message.answer("⚠️ The title is too long. Please., "
+        task_name = message.text
+        if len(task_name) > 50:
+            await message.answer("⚠️ The name is too long. Please., "
                                  "enter a name no longer than 50 characters:")
             return
-        self.controller.update_task(task_id, task_title,)
+        self.controller.update_task(task_id, task_name,)
         await message.answer(
-            f"Task updated: '{task_title}'!")
+            f"Task updated: '{task_name}'!")
         await state.clear()
         await self.show_tasks(message, user=message.from_user)
 
