@@ -1,8 +1,8 @@
-# Todo app Telegram bot
+# Todo App Telegram Bot v0.2.0
 
 ---
 
-Asynchronous task manager. [Telegram bot](https://t.me/smarttodoappbot). 
+Asynchronous task manager. [Use Telegram bot](https://t.me/smarttodoappbot). 
 
 ---
 
@@ -17,6 +17,24 @@ This bot can be deployed even on a phone using [Termux](https://github.com/termu
 - [Desktop ToDo app](https://github.com/smartlegionlab/todo_app_desktop)
 - [Cli ToDo app](https://github.com/smartlegionlab/todo_app_cli)
 - [Web ToDo app](https://github.com/smartlegionlab/todo_app_web_django)
+
+---
+
+## What's new:
+
+- Architectural code refactoring.
+- The code has been rewritten using the MVC (Model-View-Controller) architecture.
+- Bugs fixed.
+- The user interface has been simplified and improved.
+- The structure and readability of the code has been improved, making it easier to maintain and extend functionality. (SOLID, DRY, MVC).
+
+---
+
+## In the next updates:
+
+- Adding comments to tasks.
+- Adding subtasks to tasks.
+
 
 ---
 
