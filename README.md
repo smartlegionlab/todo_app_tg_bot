@@ -2,7 +2,7 @@
 
 ---
 
-Asynchronous task manager. [Telegram bot](https://t.me/smarttodoappbot). [Python](https://python.org) + [Aiogram](https://github.com/aiogram/aiogram/tree/dev-3.x).
+Asynchronous task manager. [Telegram bot](https://t.me/smarttodoappbot). 
 
 ---
 
