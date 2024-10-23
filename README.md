@@ -2,7 +2,7 @@
 
 ---
 
-Asynchronous task manager. Telegram bot. [Python](https://python.org) + [Aiogram](https://github.com/aiogram/aiogram/tree/dev-3.x).
+Asynchronous task manager. [Telegram bot](https://t.me/smarttodoappbot). [Python](https://python.org) + [Aiogram](https://github.com/aiogram/aiogram/tree/dev-3.x).
 
 ---
 
@@ -15,7 +15,8 @@ This bot can be deployed even on a phone using [Termux](https://github.com/termu
 ## Other to-do list apps:
 
 - [Desktop ToDo app](https://github.com/smartlegionlab/todo_app_desktop)
-- [Cli ToDo app](https://github.com/smartlegionlab/todo_app_cli) 
+- [Cli ToDo app](https://github.com/smartlegionlab/todo_app_cli)
+- [Web ToDo app](https://github.com/smartlegionlab/todo_app_web_django)
 
 ---
 
