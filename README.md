@@ -1,4 +1,4 @@
-# Todo App Telegram Bot v0.2.1
+# Todo App Telegram Bot v0.2.2
 
 ---
 
@@ -138,6 +138,6 @@ DB_HOST="<host>"
     --------------------------------------------------------
     Licensed under the terms of the BSD 3-Clause License
     (see LICENSE for details).
-    Copyright © 2024, A.A. Suvorov
+    Copyright © 2024-2025, Alexander Suvorov
     All rights reserved.
     --------------------------------------------------------
