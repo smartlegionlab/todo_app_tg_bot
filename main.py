@@ -1,7 +1,7 @@
 # --------------------------------------------------------
 # Licensed under the terms of the BSD 3-Clause License
 # (see LICENSE for details).
-# Copyright © 2024-2025, Alexander Suvorov
+# Copyright © 2026, Alexander Suvorov
 # All rights reserved.
 # --------------------------------------------------------
 # https://github.com/smartlegionlab/
@@ -19,9 +19,9 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message
 from dotenv import load_dotenv
 
-from smartlib.controllers import TaskController
-from smartlib.models import TaskDatabase
-from smartlib.views import TaskView
+from core.controllers import TaskController
+from core.models import TaskDatabase
+from core.views import TaskView
 
 load_dotenv()
 

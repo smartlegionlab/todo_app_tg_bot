@@ -1,4 +1,4 @@
-# Todo App Telegram Bot v0.2.2
+# Todo App Telegram Bot <sup>v1.0.0</sup>
 
 ---
 
@@ -9,6 +9,16 @@ Asynchronous task manager. [Use Telegram bot](https://t.me/smarttodoappbot).
 > TODO app (task management app) is a simple app that allows users to create, edit, delete and track their tasks.
 
 This bot can be deployed even on a phone using [Termux](https://github.com/termux).
+
+---
+
+## ⚠️ Disclaimer
+
+**By using this software, you agree to the full disclaimer terms.**
+
+**Summary:** Software provided "AS IS" without warranty. You assume all risks.
+
+**Full legal disclaimer:** See [DISCLAIMER.md](DISCLAIMER.md)
 
 ---
 
@@ -34,7 +44,6 @@ This bot can be deployed even on a phone using [Termux](https://github.com/termu
 
 - Adding comments to tasks.
 - Adding subtasks to tasks.
-
 
 ---
 
@@ -119,25 +128,6 @@ DB_HOST="<host>"
 
 ---
 
-## Disclaimer of liability:
+## License
 
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-***
-
-## Copyright:
-    --------------------------------------------------------
-    Licensed under the terms of the BSD 3-Clause License
-    (see LICENSE for details).
-    Copyright © 2024-2025, Alexander Suvorov
-    All rights reserved.
-    --------------------------------------------------------
+BSD 3-Clause License - Copyright (©) 2026, [Alexander Suvorov](https://github.com/smartlegionlab)
